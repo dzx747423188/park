@@ -14,6 +14,7 @@ public class ServerResponse <T> implements Serializable {
     private  int status;
     private String msg;
     private  T data;
+    private String sessionId;
     private  ServerResponse (int status){
         this.status = status;
     }
@@ -25,6 +26,17 @@ public class ServerResponse <T> implements Serializable {
         this.status = status ;
         this.msg = msg ;
         this.data = data ;
+    }
+    private  ServerResponse ( String  msg ,T data,String sessionId){
+        this.msg = msg ;
+        this.data = data ;
+        this.sessionId = sessionId;
+    }
+    private  ServerResponse (int status , String  msg ,T data,String sessionId){
+        this.status = status ;
+        this.msg = msg ;
+        this.data = data ;
+        this.sessionId = sessionId;
     }
     private  ServerResponse (int status , T data){
         this.status = status ;
@@ -43,7 +55,9 @@ public class ServerResponse <T> implements Serializable {
     public T getData() {
         return data;
     }
-
+    public String getSessionId(){
+        return sessionId;
+    }
     public String getMsg() {
         return msg;
     }
@@ -58,6 +72,9 @@ public class ServerResponse <T> implements Serializable {
     }
     public  static  <T>  ServerResponse<T> createBySuccess(String msg , T data){
         return  new ServerResponse<T>(ResponseCode.SUCCESS.getCode(),msg,data);
+    }
+    public  static  <T>  ServerResponse<T> createBySuccess(String msg , T data,String sessionId){
+        return  new ServerResponse<T>(ResponseCode.SUCCESS.getCode(),msg,data,sessionId);
     }
     public  static  <T> ServerResponse<T> createByError(){
         return  new ServerResponse<T>(ResponseCode.Error.getCode(),ResponseCode.Error.getDesc());

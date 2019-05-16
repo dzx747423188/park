@@ -10,14 +10,17 @@ import com.park.util.MD5Util;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 /**
  * Created by Park on 2018-8-28.
  */
 @Service("iUserService")
-public class UserService implements IUserService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private UserMapper userMapper;
@@ -35,7 +38,9 @@ public class UserService implements IUserService {
             return  ServerResponse.createByErrorMessage("密码错误!");
         }
         user.setPassword(StringUtils.EMPTY);
-        return  ServerResponse.createBySuccess("登录成功!",user);
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String sessionId = request.getSession().getId();
+        return  ServerResponse.createBySuccess("登录成功!",user,sessionId);
     }
 
     @Override

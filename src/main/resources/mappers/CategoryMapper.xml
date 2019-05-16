@@ -123,4 +123,5 @@
     from mmall_category
     where parent_id = #{parentId}
   </select>
+
 </mapper>

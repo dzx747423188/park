@@ -1,6 +1,7 @@
 package com.park.dao;
 
 import com.park.pojo.Category;
+import com.park.pojo.Product;
 
 import java.util.List;
 

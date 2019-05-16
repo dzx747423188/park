@@ -21,6 +21,13 @@ public class UserController {
 
     @Autowired
     private IUserService iUserService;
+
+    @RequestMapping(value = "index.do" , method = RequestMethod.GET)
+    @ResponseBody
+    public String login(){
+        return "index";
+    }
+
     /**
      * 用户登录
      * @param username
